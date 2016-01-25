@@ -155,14 +155,18 @@ public class MediaPickerActivity extends AppCompatActivity implements
         // TODO: not support change orientation right now (because out of
         // memory when crop image and change orientation, must check third party
         // to crop image again).
+
+        Log.d(TAG, "onCreate");
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_mediapicker);
         if (savedInstanceState != null) {
+            Log.d(TAG, "savedInstanceState != null");
             mMediaOptions = savedInstanceState
                     .getParcelable(EXTRA_MEDIA_OPTIONS);
             mPhotoFileCapture = (File) savedInstanceState
                     .getSerializable(KEY_PHOTOFILE_CAPTURE);
         } else {
+            Log.d(TAG, "savedInstanceState == null");
             mMediaOptions = getIntent().getParcelableExtra(EXTRA_MEDIA_OPTIONS);
             if (mMediaOptions == null) {
                 throw new IllegalArgumentException(
@@ -188,8 +192,8 @@ public class MediaPickerActivity extends AppCompatActivity implements
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.mediapicker_main, menu);
-        mPhoto = menu.findItem(R.id.take_photo);
-        mVideo = menu.findItem(R.id.take_video);
+//        mPhoto = menu.findItem(R.id.take_photo);
+//        mVideo = menu.findItem(R.id.take_video);
         mMediaSwitcher = menu.findItem(R.id.media_switcher);
         mDone = menu.findItem(R.id.done);
         syncActionbar();
@@ -209,15 +213,16 @@ public class MediaPickerActivity extends AppCompatActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         int i = item.getItemId();
         if (i == android.R.id.home) {
-            finish();
+	        finish();
 
-        } else if (i == R.id.take_photo) {
-            takePhoto();
-            return true;
-        } else if (i == R.id.take_video) {
-            takeVideo();
-            return true;
+//        } else if (i == R.id.take_photo) {
+//            takePhoto();
+//            return true;
+//        } else if (i == R.id.take_video) {
+//            takeVideo();
+//            return true;
         } else if (i == R.id.media_switcher) {
+	        Log.d(TAG, "you click media_switcher");
             Fragment activePage = getActivePage();
             if (mMediaOptions.canSelectPhotoAndVideo()
                     && activePage instanceof MediaPickerFragment) {
@@ -227,6 +232,7 @@ public class MediaPickerActivity extends AppCompatActivity implements
             }
             return true;
         } else if (i == R.id.done) {
+	        Log.d(TAG, "you click done");
             Fragment activePage;
             activePage = getActivePage();
             boolean isPhoto = ((MediaPickerFragment) activePage)
@@ -284,8 +290,8 @@ public class MediaPickerActivity extends AppCompatActivity implements
 
     private void showDone() {
         mDone.setVisible(true);
-        mPhoto.setVisible(false);
-        mVideo.setVisible(false);
+//        mPhoto.setVisible(false);
+//        mVideo.setVisible(false);
         mMediaSwitcher.setVisible(false);
     }
 
@@ -296,16 +302,16 @@ public class MediaPickerActivity extends AppCompatActivity implements
         } else {
             mMediaSwitcher.setVisible(false);
         }
-        if (mMediaOptions.canSelectPhoto()) {
-            mPhoto.setVisible(true);
-        } else {
-            mPhoto.setVisible(false);
-        }
-        if (mMediaOptions.canSelectVideo()) {
-            mVideo.setVisible(true);
-        } else {
-            mVideo.setVisible(false);
-        }
+//        if (mMediaOptions.canSelectPhoto()) {
+//            mPhoto.setVisible(true);
+//        } else {
+//            mPhoto.setVisible(false);
+//        }
+//        if (mMediaOptions.canSelectVideo()) {
+//            mVideo.setVisible(true);
+//        } else {
+//            mVideo.setVisible(false);
+//        }
     }
 
     private void syncIconMenu(int mediaType) {
