@@ -292,7 +292,12 @@ public class MediaPickerActivity extends AppCompatActivity implements
         mDone.setVisible(true);
 //        mPhoto.setVisible(false);
 //        mVideo.setVisible(false);
-        mMediaSwitcher.setVisible(false);
+
+	    // hide switcher icon in action bar
+//        mMediaSwitcher.setVisible(false);
+
+	    /** still show switcher icon in action bar for test **/
+	    mMediaSwitcher.setVisible(true);
     }
 
     private void syncMediaOptions() {
@@ -315,6 +320,7 @@ public class MediaPickerActivity extends AppCompatActivity implements
     }
 
     private void syncIconMenu(int mediaType) {
+	    Log.d(TAG, "syncIconMenu: " + mediaType);
         switch (mediaType) {
             case MediaItem.PHOTO:
                 mMediaSwitcher.setIcon(R.drawable.ab_picker_video_2);
@@ -489,6 +495,7 @@ public class MediaPickerActivity extends AppCompatActivity implements
     }
 
     public void syncActionbar() {
+	    Log.d(TAG, "syncActionBar");
         Fragment fragment = getActivePage();
         if (fragment instanceof PhotoCropFragment) {
             hideAllOptionsMenu();

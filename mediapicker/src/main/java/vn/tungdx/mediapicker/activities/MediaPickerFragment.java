@@ -12,6 +12,7 @@ import android.provider.MediaStore.Video;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,6 +63,8 @@ public class MediaPickerFragment extends BaseFragment implements
 
     private int mMediaType;
     private int mPhotoSize, mPhotoSpacing;
+
+    private String TAG = "MediaPickerFragment";
 
     public MediaPickerFragment() {
         mSavedInstanceState = new Bundle();
@@ -241,11 +244,14 @@ public class MediaPickerFragment extends BaseFragment implements
     }
 
     public void switchMediaSelector() {
+        Log.d(TAG, "switchMediaSelector");
         if (!mMediaOptions.canSelectPhotoAndVideo())
             return;
         if (mMediaType == MediaItem.PHOTO) {
+            Log.d(TAG, "current is photo, switch to video");
             mMediaType = MediaItem.VIDEO;
         } else {
+            Log.d(TAG, "current is video, switch to photo");
             mMediaType = MediaItem.PHOTO;
         }
         switch (mMediaType) {
